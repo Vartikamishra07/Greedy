@@ -1,0 +1,36 @@
+#include <vector>
+using namespace std;
+
+class Solution 
+{
+public:
+    int bagOfTokensScore(vector<int>& tokens, int power) 
+    {
+       int n=tokens.size();
+       sort(tokens.begin() , tokens.end());
+       int left=0;
+       int right=n-1;
+       int score=0;
+       int maxScore=0;
+       while(left<=right)
+       {
+          if(power>=tokens[left])
+          {
+              power=power-tokens[left];
+              score++;
+              maxScore=max(maxScore , score);
+              left++;
+          }
+          else if(score>0)
+          {
+             power=power+tokens[right];
+             score--;
+             right--;
+          }
+          else{
+              break;
+          }
+       }
+       return maxScore;
+    }
+};
